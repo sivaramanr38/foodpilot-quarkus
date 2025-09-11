@@ -6,6 +6,7 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import org.foodpilot.dto.RestaurantDTO;
 import org.foodpilot.model.Restaurant;
 import org.foodpilot.service.RestaurantService;
 
@@ -20,7 +21,7 @@ public class RestaurantResource {
     RestaurantService restaurantService;
 
     @GET
-    public List<Restaurant> getAll() {
+    public List<RestaurantDTO> getAll() {
         return restaurantService.getAllRestaurants();
     }
 }

@@ -2,11 +2,14 @@ package org.foodpilot.service;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import org.foodpilot.dto.RestaurantDTO;
+import org.foodpilot.mapper.RestaurantMapper;
 import org.foodpilot.model.Restaurant;
 import org.foodpilot.repository.RestaurantRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class RestaurantServiceImpl implements RestaurantService{
@@ -15,8 +18,10 @@ public class RestaurantServiceImpl implements RestaurantService{
     RestaurantRepository restaurantRepository;
 
     @Override
-    public List<Restaurant> getAllRestaurants() {
-        return restaurantRepository.listAll();
+    public List<RestaurantDTO> getAllRestaurants() {
+        return restaurantRepository.listAll().stream()
+                .map(RestaurantMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
     @Override

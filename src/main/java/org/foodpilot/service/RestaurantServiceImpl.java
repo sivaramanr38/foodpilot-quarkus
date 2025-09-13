@@ -2,7 +2,9 @@ package org.foodpilot.service;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import org.foodpilot.dto.RestaurantDTO;
+import org.foodpilot.exception.RestaurantNotFoundException;
 import org.foodpilot.mapper.RestaurantMapper;
 import org.foodpilot.model.Restaurant;
 import org.foodpilot.repository.RestaurantRepository;
@@ -25,35 +27,33 @@ public class RestaurantServiceImpl implements RestaurantService{
     }
 
     @Override
-    public Optional<Restaurant> getRestaurantById(Long id) {
-        return restaurantRepository.findByIdOptional(id);
+    public Optional<RestaurantDTO> getRestaurantById(Long id) {
+        return restaurantRepository.findByIdOptional(id)
+                .map(RestaurantMapper::toDTO);
     }
 
     @Override
-    public void addRestaurant(Restaurant restaurant) {
+    @Transactional
+    public long addRestaurant(RestaurantDTO restaurantDto) {
+        Restaurant restaurant = RestaurantMapper.toEntity(restaurantDto);
         restaurantRepository.persist(restaurant);
+        return restaurant.getId();
     }
 
     @Override
-    public void deleteRestaurant(Long id) {
-        restaurantRepository.deleteById(id);
-    }
-
-    @Override
-    public void updateRestaurant(Long id, Restaurant updatedRestaurant) {
+    @Transactional
+    public boolean updateRestaurant(Long id, RestaurantDTO updatedRestaurant) {
         Restaurant existing = restaurantRepository.findById(id);
-        if (existing != null) {
-            existing.name = updatedRestaurant.name;
-            existing.cuisineType = updatedRestaurant.cuisineType;
-            existing.location = updatedRestaurant.location;
-            existing.ratings = updatedRestaurant.ratings;
-            existing.ratingsCount = updatedRestaurant.ratingsCount;
-            existing.promotions = updatedRestaurant.promotions;
-            existing.freeDelivery = updatedRestaurant.freeDelivery;
-            existing.dineIn = updatedRestaurant.dineIn;
-            existing.takeaway = updatedRestaurant.takeaway;
-            existing.openTime = updatedRestaurant.openTime;
-            existing.closeTime = updatedRestaurant.closeTime;
+        if (existing == null) {
+            return false;
         }
+        RestaurantMapper.updateEntityFromDTO(existing, updatedRestaurant);
+        return true;
+    }
+
+    @Override
+    @Transactional
+    public boolean deleteRestaurant(Long id) {
+        return restaurantRepository.deleteById(id);
     }
 }

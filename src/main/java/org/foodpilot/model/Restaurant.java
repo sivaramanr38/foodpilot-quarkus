@@ -1,42 +1,56 @@
 package org.foodpilot.model;
 import jakarta.persistence.*;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 import java.math.BigDecimal;
 import java.time.LocalTime;
 
 @Entity
 @Table(name = "restaurant")
+@Schema(description = "Entity representing a restaurant in the system")
 public class Restaurant {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(description = "Unique identifier of the restaurant", example = "101")
     public Long id;
 
     @Column(nullable = false, length = 100)
+    @Schema(description = "Name of the restaurant", example = "Spice Garden", required = true)
     public String name;
 
     @Column(length = 50)
+    @Schema(description = "Type of cuisine served", example = "Indian")
     public String cuisineType;
 
     @Column(length = 150)
+    @Schema(description = "Location of the restaurant", example = "Koramangala, Bangalore")
     public String location;
 
     @Column(precision = 3, scale = 2)
+    @Schema(description = "Average rating of the restaurant", example = "4.5")
     public BigDecimal ratings;
 
+    @Schema(description = "Total number of ratings received", example = "250")
     public Integer ratingsCount;
 
     @Column(columnDefinition = "TEXT")
+    @Schema(description = "Current promotions available", example = "20% off on orders above ₹500")
     public String promotions;
 
+    @Schema(description = "Indicates if free delivery is available", example = "true")
     public Boolean freeDelivery = false;
 
+    @Schema(description = "Indicates if dine-in is available", example = "true")
     public Boolean dineIn = true;
 
+    @Schema(description = "Indicates if takeaway is available", example = "true")
     public Boolean takeaway = true;
 
+    @Schema(description = "Opening time of the restaurant", example = "10:00")
     public LocalTime openTime;
 
+    @Schema(description = "Closing time of the restaurant", example = "22:30")
     public LocalTime closeTime;
 
     public Restaurant() {

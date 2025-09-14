@@ -1,21 +1,48 @@
 package org.foodpilot.dto;
 
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+
 import java.math.BigDecimal;
 import java.time.LocalTime;
 
+@Schema(description = "Represents a restaurant with its details")
 public class RestaurantDTO {
 
+        @Schema(description = "Unique identifier of the restaurant", example = "101")
         private Long id;
+
+        @Schema(description = "Name of the restaurant", example = "Spice Garden")
         private String name;
+
+        @Schema(description = "Type of cuisine served", example = "Indian")
         private String cuisineType;
+
+        @Schema(description = "Location of the restaurant", example = "Koramangala, Bangalore")
         private String location;
+
+        @Schema(description = "Average rating of the restaurant", example = "4.5")
         private BigDecimal ratings;
+
+        @Schema(description = "Total number of ratings received", example = "250")
         private Integer ratingsCount;
+
+        @Schema(description = "Current promotions available", example = "20% off on orders above ₹500")
         private String promotions;
+
+        @Schema(description = "Indicates if free delivery is available", example = "true")
         private Boolean freeDelivery;
+
+        @Schema(description = "Indicates if dine-in is available", example = "true")
         private Boolean dineIn;
+
+        @Schema(description = "Indicates if takeaway is available", example = "false")
         private Boolean takeaway;
+
+        @Schema(description = "Opening time of the restaurant", example = "10:00")
         private LocalTime openTime;
+
+        @Schema(description = "Closing time of the restaurant", example = "22:30")
+//      You can also use @Schema(hidden = true) to exclude fields from the documentation if needed.
         private LocalTime closeTime;
 
         public RestaurantDTO() {

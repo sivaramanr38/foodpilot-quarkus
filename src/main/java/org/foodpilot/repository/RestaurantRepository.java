@@ -42,6 +42,4 @@ public class RestaurantRepository implements PanacheRepository<Restaurant> {
                 })
                 .collect(Collectors.toList());
     }
-
-
 }

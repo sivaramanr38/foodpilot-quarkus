@@ -78,6 +78,28 @@ public class RestaurantResource {
         if (!deleted) {
             throw new RestaurantNotFoundException("Restaurant not found with ID: " + id);
         }
-        return Response.noContent().build(); // 204 No Content
+        return Response.noContent().build();
     }
+
+    @GET
+    @Path("/cuisine")
+    public Response getRestaurantByCuisine(@QueryParam("cuisineType") String cuisineType) {
+        List<RestaurantDTO> restaurantDTOS = restaurantService.getRestaurantsByCuisine(cuisineType);
+        if (restaurantDTOS.isEmpty()) {
+            throw new RestaurantNotFoundException("Restaurant not found with cuisineType: " + cuisineType);
+        }
+        return Response.ok(restaurantDTOS).build();
+    }
+
+    @GET
+    @Path("/openNow")
+    public Response getOpenRestaurants(@QueryParam("page") @DefaultValue("0") int page,
+                                       @QueryParam("size") @DefaultValue("10") int size) {
+        List<RestaurantDTO> openRestaurants = restaurantService.getOpenRestaurants(page, size);
+        if (openRestaurants.isEmpty()) {
+            throw new RestaurantNotFoundException("No open restaurants found");
+        }
+        return Response.ok(openRestaurants).build();
+    }
+
 }

@@ -4,7 +4,6 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import org.foodpilot.dto.RestaurantDTO;
-import org.foodpilot.exception.RestaurantNotFoundException;
 import org.foodpilot.mapper.RestaurantMapper;
 import org.foodpilot.model.Restaurant;
 import org.foodpilot.repository.RestaurantRepository;
@@ -55,5 +54,26 @@ public class RestaurantServiceImpl implements RestaurantService{
     @Transactional
     public boolean deleteRestaurant(Long id) {
         return restaurantRepository.deleteById(id);
+    }
+
+    @Override
+    @Transactional
+    public List<RestaurantDTO> getRestaurantsByCuisine(String cuisineType) {
+        List<Restaurant> restaurants = restaurantRepository.getRestaurantsByCuisine(cuisineType);
+        List<RestaurantDTO> restaurantDtos = restaurants
+                .stream()
+                .map(RestaurantMapper::toDTO)
+                .collect(Collectors.toList());
+        return restaurantDtos;
+    }
+
+    @Override
+    @Transactional
+    public List<RestaurantDTO> getOpenRestaurants(int page, int size) {
+        List<Restaurant> restaurants = restaurantRepository.getOpenRestaurants(page, size);
+        List<RestaurantDTO> restaurantDTOs = restaurants.stream()
+                .map(RestaurantMapper::toDTO)
+                .collect(Collectors.toList());
+        return restaurantDTOs;
     }
 }

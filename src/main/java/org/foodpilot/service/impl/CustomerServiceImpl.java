@@ -3,11 +3,13 @@ package org.foodpilot.service.impl;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.foodpilot.dto.CustomerDTO;
+import org.foodpilot.dto.RestaurantDTO;
 import org.foodpilot.mapper.CustomerMapper;
 import org.foodpilot.repository.CustomerRepository;
 import org.foodpilot.service.CustomerService;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @ApplicationScoped
@@ -24,5 +26,15 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.listAll().stream()
                 .map(CustomerMapper::toDTO)
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * @param id
+     * @return
+     */
+    @Override
+    public Optional<CustomerDTO> getCustomerById(Long id) {
+        return customerRepository.findByIdOptional(id)
+                .map(CustomerMapper::toDTO);
     }
 }

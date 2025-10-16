@@ -2,9 +2,11 @@ package org.foodpilot.service.impl;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import org.foodpilot.dto.CustomerDTO;
 import org.foodpilot.dto.RestaurantDTO;
 import org.foodpilot.mapper.CustomerMapper;
+import org.foodpilot.model.Customer;
 import org.foodpilot.repository.CustomerRepository;
 import org.foodpilot.service.CustomerService;
 
@@ -36,5 +38,17 @@ public class CustomerServiceImpl implements CustomerService {
     public Optional<CustomerDTO> getCustomerById(Long id) {
         return customerRepository.findByIdOptional(id)
                 .map(CustomerMapper::toDTO);
+    }
+
+    /**
+     * @param customerDTO
+     * @return
+     */
+    @Override
+    @Transactional
+    public long addCustomer(CustomerDTO customerDTO) {
+        Customer customer = CustomerMapper.toEntity(customerDTO);
+        customerRepository.persist(customer);
+        return customer.getId();
     }
 }

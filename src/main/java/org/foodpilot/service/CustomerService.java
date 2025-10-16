@@ -13,4 +13,6 @@ public interface CustomerService {
 
     Optional<CustomerDTO> getCustomerById(Long id);
 
+    long addCustomer(CustomerDTO customer);
+
 }

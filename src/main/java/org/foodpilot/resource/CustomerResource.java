@@ -54,7 +54,7 @@ public class CustomerResource {
     }
 
     @POST
-    @Operation(summary = "Add a new customer", description = "Creates a new customer and returns its ID")
+    @Operation(summary = "Add a new customer and return its id", description = "Creates a new customer and returns its ID")
     @APIResponse(responseCode = "201", description = "Customer created successfully")
     @APIResponse(responseCode = "400", description = "Invalid customer data")
     public Response addCustomer(@Parameter(description = "Customer data to create") CustomerDTO customerDTO) {

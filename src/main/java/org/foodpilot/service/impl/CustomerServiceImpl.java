@@ -51,4 +51,20 @@ public class CustomerServiceImpl implements CustomerService {
         customerRepository.persist(customer);
         return customer.getId();
     }
+
+    /**
+     * @param id
+     * @param updatedCustomer
+     * @return
+     */
+    @Override
+    @Transactional
+    public boolean updateCustomer(Long id, CustomerDTO updatedCustomer) {
+        Customer customer = customerRepository.findById(id);
+        if(customer == null) {
+            return false;
+        }
+        CustomerMapper.updateEntityFromDTO(customer, updatedCustomer);
+        return true;
+    }
 }

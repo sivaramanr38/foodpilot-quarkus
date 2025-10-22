@@ -15,4 +15,6 @@ public interface CustomerService {
 
     long addCustomer(CustomerDTO customer);
 
+    boolean updateCustomer(Long id, CustomerDTO updatedCustomer);
+
 }

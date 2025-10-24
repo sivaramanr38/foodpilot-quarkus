@@ -65,4 +65,17 @@ public class CustomerResource {
         URI location = URI.create("/customer/" + createdId);
         return Response.created(location).entity(Map.of("id", createdId)).build();
     }
+
+    @POST
+    @Path("/{id}")
+    public Response updateCustomer(@Parameter Long id, @Parameter CustomerDTO customerDTO) {
+        if(customerDTO == null || customerDTO.getFirstName() == null) {
+            throw new IllegalArgumentException("Customer name is required");
+        }
+        boolean updated = customerService.updateCustomer(id, customerDTO);
+        if(!updated) {
+            throw new CustomerNotFoundException("Customer not found with ID: " + id);
+        }
+        return Response.ok(Map.of("message", "Restaurant updated successfully")).build();
+    }
 }

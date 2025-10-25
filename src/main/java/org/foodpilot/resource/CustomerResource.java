@@ -68,7 +68,13 @@ public class CustomerResource {
 
     @POST
     @Path("/{id}")
-    public Response updateCustomer(@Parameter Long id, @Parameter CustomerDTO customerDTO) {
+    @Operation(summary = "Customer restaurant", description = "Updates an existing customer by ID")
+    @APIResponse(responseCode = "200", description = "Customer updated successfully")
+    @APIResponse(responseCode = "404", description = "Customer not found")
+    @APIResponse(responseCode = "400", description = "Invalid update data")
+    public Response updateCustomer(
+            @Parameter(description = "ID of the customer to update", example = "101") @PathParam("id") Long id,
+            @Parameter(description = "Updated customer data")  CustomerDTO customerDTO) {
         if(customerDTO == null || customerDTO.getFirstName() == null) {
             throw new IllegalArgumentException("Customer name is required");
         }

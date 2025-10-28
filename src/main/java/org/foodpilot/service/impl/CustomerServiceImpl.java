@@ -67,4 +67,15 @@ public class CustomerServiceImpl implements CustomerService {
         CustomerMapper.updateEntityFromDTO(customer, updatedCustomer);
         return true;
     }
+
+    /**
+     * @param id
+     * @return
+     */
+    @Override
+    @Transactional
+    public boolean deleteCustomer(Long id) {
+        return customerRepository.deleteById(id);
+    }
+
 }

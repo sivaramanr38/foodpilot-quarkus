@@ -17,4 +17,6 @@ public interface CustomerService {
 
     boolean updateCustomer(Long id, CustomerDTO updatedCustomer);
 
+    boolean deleteCustomer(Long id);
+
 }

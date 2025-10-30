@@ -84,4 +84,14 @@ public class CustomerResource {
         }
         return Response.ok(Map.of("message", "Restaurant updated successfully")).build();
     }
+
+    @DELETE
+    @Path("{/id}")
+    public Response deleteCustomer(@PathParam("id") Long id) {
+        boolean deleted = customerService.deleteCustomer(id);
+        if(!deleted) {
+            throw new CustomerNotFoundException("Restaurant not found with ID: " + id);
+        }
+        return Response.noContent().build();
+    }
 }

@@ -87,10 +87,14 @@ public class CustomerResource {
 
     @DELETE
     @Path("{/id}")
-    public Response deleteCustomer(@PathParam("id") Long id) {
+    @Operation(summary = "Delete customer", description = "Deletes a customer by its ID")
+    @APIResponse(responseCode = "204", description = "Customer deleted successfully")
+    @APIResponse(responseCode = "404", description = "Customer not found")
+    public Response deleteCustomer(
+            @Parameter(description = "ID of the customer to delete", example = "101")@PathParam("id") Long id) {
         boolean deleted = customerService.deleteCustomer(id);
         if(!deleted) {
-            throw new CustomerNotFoundException("Restaurant not found with ID: " + id);
+            throw new CustomerNotFoundException("Customer not found with ID: " + id);
         }
         return Response.noContent().build();
     }

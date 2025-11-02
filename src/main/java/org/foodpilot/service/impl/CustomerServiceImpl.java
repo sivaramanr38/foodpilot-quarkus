@@ -78,4 +78,13 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.deleteById(id);
     }
 
+    /**
+     * @param id
+     * @return
+     */
+    @Override
+    public Optional<CustomerDTO> getCustomerByEmail(Long id) {
+        return Optional.empty();
+    }
+
 }

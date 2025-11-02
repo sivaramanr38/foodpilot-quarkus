@@ -19,4 +19,6 @@ public interface CustomerService {
 
     boolean deleteCustomer(Long id);
 
+    Optional<CustomerDTO> getCustomerByEmail(Long id);
+
 }

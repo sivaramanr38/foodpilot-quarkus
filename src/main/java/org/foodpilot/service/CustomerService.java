@@ -21,4 +21,5 @@ public interface CustomerService {
 
     Optional<CustomerDTO> getCustomerByEmail(Long id);
 
+    Optional<CustomerDTO> getCustomerByEmail(String email);
 }

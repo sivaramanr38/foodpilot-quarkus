@@ -4,7 +4,6 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import org.foodpilot.dto.CustomerDTO;
-import org.foodpilot.dto.RestaurantDTO;
 import org.foodpilot.mapper.CustomerMapper;
 import org.foodpilot.model.Customer;
 import org.foodpilot.repository.CustomerRepository;
@@ -84,6 +83,16 @@ public class CustomerServiceImpl implements CustomerService {
      */
     @Override
     public Optional<CustomerDTO> getCustomerByEmail(Long id) {
+        return Optional.empty();
+    }
+
+    /**
+     * @param id
+     * @return
+     */
+    @Override
+    public Optional<CustomerDTO> getCustomerByEmail(String email) {
+        List<Customer> customer = customerRepository.getCustomerByEmail(email);
         return Optional.empty();
     }
 

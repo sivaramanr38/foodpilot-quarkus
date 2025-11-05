@@ -78,22 +78,13 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     /**
-     * @param id
+     * @param email
      * @return
      */
     @Override
-    public Optional<CustomerDTO> getCustomerByEmail(Long id) {
-        return Optional.empty();
-    }
-
-    /**
-     * @param id
-     * @return
-     */
-    @Override
-    public Optional<CustomerDTO> getCustomerByEmail(String email) {
+    public List<CustomerDTO> getCustomerByEmail(String email) {
         List<Customer> customer = customerRepository.getCustomerByEmail(email);
-        return Optional.empty();
+        return customer.stream().map(CustomerMapper::toDTO).collect(Collectors.toList());
     }
 
 }

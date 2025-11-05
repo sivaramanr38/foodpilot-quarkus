@@ -19,7 +19,5 @@ public interface CustomerService {
 
     boolean deleteCustomer(Long id);
 
-    Optional<CustomerDTO> getCustomerByEmail(Long id);
-
-    Optional<CustomerDTO> getCustomerByEmail(String email);
+    List<CustomerDTO> getCustomerByEmail(String email);
 }

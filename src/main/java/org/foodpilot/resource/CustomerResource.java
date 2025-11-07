@@ -98,4 +98,11 @@ public class CustomerResource {
         }
         return Response.noContent().build();
     }
+
+    @GET
+    @Path("{/email}")
+    public Response getCustomerByEmail(@PathParam("email") String email) {
+        List<CustomerDTO> customerDTO = customerService.getCustomerByEmail(email);
+        return Response.ok(customerDTO).build();
+    }
 }

@@ -82,9 +82,9 @@ public class CustomerServiceImpl implements CustomerService {
      * @return
      */
     @Override
-    public List<CustomerDTO> getCustomerByEmail(String email) {
-        List<Customer> customer = customerRepository.getCustomerByEmail(email);
-        return customer.stream().map(CustomerMapper::toDTO).collect(Collectors.toList());
+    public CustomerDTO getCustomerByEmail(String email) {
+        Customer customer = customerRepository.getCustomerByEmail(email);
+        return CustomerMapper.toDTO(customer);
     }
 
 }

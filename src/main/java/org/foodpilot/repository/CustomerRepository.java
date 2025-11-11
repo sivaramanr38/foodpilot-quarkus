@@ -16,12 +16,12 @@ public class CustomerRepository implements PanacheRepository<Customer> {
     @PersistenceContext
     EntityManager entityManager;
 
-    public List<Customer> getCustomerByEmail(String email) {
+    public Customer getCustomerByEmail(String email) {
         String jpql = "SELECT c FROM Customer c WHERE c.email = :email";
-        List<Customer> customers = entityManager
+        Customer customer = entityManager
                 .createQuery(jpql, Customer.class)
                 .setParameter("email",email)
-                .getResultList();
-        return customers;
+                .getSingleResult();
+        return customer;
     }
 }

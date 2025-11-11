@@ -102,7 +102,7 @@ public class CustomerResource {
     @GET
     @Path("{/email}")
     public Response getCustomerByEmail(@PathParam("email") String email) {
-        List<CustomerDTO> customerDTO = customerService.getCustomerByEmail(email);
+        CustomerDTO customerDTO = customerService.getCustomerByEmail(email);
         return Response.ok(customerDTO).build();
     }
 }

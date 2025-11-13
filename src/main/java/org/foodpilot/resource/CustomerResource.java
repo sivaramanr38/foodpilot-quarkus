@@ -68,7 +68,7 @@ public class CustomerResource {
 
     @POST
     @Path("/{id}")
-    @Operation(summary = "Customer restaurant", description = "Updates an existing customer by ID")
+    @Operation(summary = "Customer update", description = "Updates an existing customer by ID")
     @APIResponse(responseCode = "200", description = "Customer updated successfully")
     @APIResponse(responseCode = "404", description = "Customer not found")
     @APIResponse(responseCode = "400", description = "Invalid update data")
@@ -101,6 +101,9 @@ public class CustomerResource {
 
     @GET
     @Path("{/email}")
+    @Operation(summary = "Cutomer retrieval", description = "Retrieves a customer by its ID")
+    @APIResponse(responseCode = "404", description = "Customer not found")
+    @APIResponse(responseCode = "200", description = "Customer retrieved successfully")
     public Response getCustomerByEmail(@PathParam("email") String email) {
         CustomerDTO customerDTO = customerService.getCustomerByEmail(email);
         return Response.ok(customerDTO).build();

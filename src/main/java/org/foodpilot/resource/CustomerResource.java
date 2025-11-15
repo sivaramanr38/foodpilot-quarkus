@@ -13,6 +13,7 @@ import org.foodpilot.dto.CustomerDTO;
 import org.foodpilot.exception.CustomerNotFoundException;
 import org.foodpilot.exception.RestaurantNotFoundException;
 import org.foodpilot.service.CustomerService;
+import org.h2.util.StringUtils;
 
 import java.net.URI;
 import java.util.List;
@@ -105,7 +106,13 @@ public class CustomerResource {
     @APIResponse(responseCode = "404", description = "Customer not found")
     @APIResponse(responseCode = "200", description = "Customer retrieved successfully")
     public Response getCustomerByEmail(@PathParam("email") String email) {
+        if(StringUtils.isNullOrEmpty(email)) {
+            throw new IllegalArgumentException("Customer email is required");
+        }
         CustomerDTO customerDTO = customerService.getCustomerByEmail(email);
+        if(customerDTO == null) {
+            throw new CustomerNotFoundException("Customer not found with email: " + email);
+        }
         return Response.ok(customerDTO).build();
     }
 }

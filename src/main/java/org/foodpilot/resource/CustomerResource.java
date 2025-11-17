@@ -6,12 +6,10 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
-import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.foodpilot.dto.CustomerDTO;
 import org.foodpilot.exception.CustomerNotFoundException;
-import org.foodpilot.exception.RestaurantNotFoundException;
 import org.foodpilot.service.CustomerService;
 import org.h2.util.StringUtils;
 
@@ -102,7 +100,7 @@ public class CustomerResource {
 
     @GET
     @Path("{/email}")
-    @Operation(summary = "Cutomer retrieval", description = "Retrieves a customer by its ID")
+    @Operation(summary = "Get Cutomer by email", description = "Retrieves a customer by its ID")
     @APIResponse(responseCode = "404", description = "Customer not found")
     @APIResponse(responseCode = "200", description = "Customer retrieved successfully")
     public Response getCustomerByEmail(@PathParam("email") String email) {
